@@ -5,7 +5,7 @@ SET /p password="Passwort: " %=%
 SET autostartfile="c:\dropboxen.bat"
 
 rem create user
-net user %username% %password% /ADD
+NET USER %username% %password% /ADD
 if errorlevel 1 ECHO Could not create user "%username%" && GOTO :EOF
 
 rem Hide newly created user
@@ -19,7 +19,7 @@ if errorlevel 1 ECHO Could not Download Dropbox Installer && GOTO :EOF
 rem Execute Dropbox installer as target user
 psexec -u "%username%" -p "%password%" "DropboxInstaller.exe"
 if errorlevel 1 ECHO Dropbox Installation not successfull && GOTO :EOF
-del DropboxInstaller.exe
+DEL DropboxInstaller.exe
 
 rem add line to autostart file
 ECHO psexec -d -u "%username%" -p %password% "C:\Users\%username%\AppData\Roaming\Dropbox\bin\Dropbox.exe" >> %autostartfile%
